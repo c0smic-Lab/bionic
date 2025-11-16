@@ -88,32 +88,15 @@ cc_defaults {
     recovery_available: true,
     native_bridge_supported: true,
 
-    multilib: {
-        lib64: {
-            product_variables: {
-                malloc_zero_contents: {
-                    cflags: ["-DSCUDO_ZERO_CONTENTS"],
-                },
-                malloc_pattern_fill_contents: {
-                    cflags: ["-DSCUDO_PATTERN_FILL_CONTENTS"],
-                },
-                malloc_low_memory: {
-                    cflags: ["-UUSE_SCUDO"],
-                },
-            },
+    product_variables: {
+        malloc_zero_contents: {
+            cflags: ["-DSCUDO_ZERO_CONTENTS"],
         },
-        lib32: {
-            product_variables: {
-                malloc_zero_contents: {
-                    cflags: ["-DSCUDO_ZERO_CONTENTS"],
-                },
-                malloc_pattern_fill_contents: {
-                    cflags: ["-DSCUDO_PATTERN_FILL_CONTENTS"],
-                },
-                malloc_low_memory_libc32: {
-                    cflags: ["-UUSE_SCUDO"],
-                },
-            },
+        malloc_pattern_fill_contents: {
+            cflags: ["-DSCUDO_PATTERN_FILL_CONTENTS"],
+        },
+        malloc_low_memory: {
+            cflags: ["-UUSE_SCUDO"],
         },
     },
 
@@ -196,35 +179,17 @@ cc_defaults {
         "-DUSE_SCUDO",
     ],
     header_libs: ["gwp_asan_headers"],
-    multilib: {
-        lib64: {
-            product_variables: {
-                malloc_low_memory: {
-                    cflags: ["-UUSE_SCUDO"],
-                    whole_static_libs: [
-                        "libjemalloc5",
-                        "libc_jemalloc_wrapper",
-                    ],
-                    exclude_static_libs: [
-                        "libscudo",
-                    ],
-                },
-            },
+    product_variables: {
+        malloc_low_memory: {
+            cflags: ["-UUSE_SCUDO"],
+            whole_static_libs: [
+                "libjemalloc5",
+                "libc_jemalloc_wrapper",
+            ],
+            exclude_static_libs: [
+                "libscudo",
+            ],
         },
-        lib32: {
-            product_variables: {
-                malloc_low_memory_libc32: {
-                    cflags: ["-UUSE_SCUDO"],
-                    whole_static_libs: [
-                        "libjemalloc5",
-                        "libc_jemalloc_wrapper",
-                    ],
-                    exclude_static_libs: [
-                        "libscudo",
-                    ],
-                },
-            },
-        }
     },
 }
 
